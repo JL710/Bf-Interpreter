@@ -1,5 +1,6 @@
 import argparse
 import re
+from pathlib import Path
 
 
 def format(code: str) -> str:
@@ -130,3 +131,12 @@ if __name__ == "__main__":
 
     elif args.code:
         Interpreter(input("Code: "), args.debug, args.memory_output)
+
+    else:
+        user_input = input("Path or Code: ")
+        if Path(user_input).is_file():
+            with open(args.file, "r") as f:
+                code = f.read()
+        else:
+            code = user_input
+        Interpreter(code, False, False)
